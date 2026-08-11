@@ -88,6 +88,50 @@ function isNumberKey(evt)
         return true;
       }  
 //end of used in pos sa number only na textfields
+
+// Dark Mode Toggle Logic
+$(document).ready(function() {
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const toggleIcon = document.getElementById('darkModeIcon');
+
+    function updateIcon(isDark) {
+        if (toggleIcon) {
+            if (isDark) {
+                toggleIcon.className = 'fas fa-sun text-warning';
+                toggleIcon.style.color = '#C9762C';
+            } else {
+                toggleIcon.className = 'fas fa-moon text-gray-600';
+                toggleIcon.style.color = '';
+            }
+        }
+    }
+
+    const isDark = document.body.classList.contains('dark-mode') || localStorage.getItem('dark-mode') === 'true';
+    if (isDark) {
+        document.body.classList.add('dark-mode');
+        updateIcon(true);
+    } else {
+        updateIcon(false);
+    }
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const wasDark = document.body.classList.contains('dark-mode');
+            const nowDark = !wasDark;
+            
+            if (nowDark) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('dark-mode', 'true');
+                updateIcon(true);
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('dark-mode', 'false');
+                updateIcon(false);
+            }
+        });
+    }
+});
 </script>
 
 </body>

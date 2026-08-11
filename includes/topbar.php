@@ -16,6 +16,13 @@
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
+            <!-- Dark Mode Toggle -->
+            <li class="nav-item d-flex align-items-center mr-3">
+              <button id="darkModeToggle" title="Toggle Light/Dark Mode">
+                <i class="fas fa-moon" id="darkModeIcon"></i>
+              </button>
+            </li>
+
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link" href="pos.php" role="button">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">POS</span>

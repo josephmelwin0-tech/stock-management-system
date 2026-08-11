@@ -52,6 +52,16 @@
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="cart.css" />
+  
+  <!-- Early Dark Mode Detection to Prevent Flash -->
+  <script>
+    if (localStorage.getItem('dark-mode') === 'true') {
+      document.documentElement.classList.add('dark-mode');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('dark-mode');
+      });
+    }
+  </script>
 </head>
 
 <body id="page-top">
@@ -77,6 +87,13 @@
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
+
+            <!-- Dark Mode Toggle -->
+            <li class="nav-item d-flex align-items-center mr-3">
+              <button id="darkModeToggle" title="Toggle Light/Dark Mode">
+                <i class="fas fa-moon" id="darkModeIcon"></i>
+              </button>
+            </li>
 
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link" href="pos.php" role="button">
