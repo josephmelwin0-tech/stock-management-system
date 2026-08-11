@@ -654,3 +654,59 @@ body.dark-mode .page-item.disabled .page-link {
         padding: 2.5rem 1.5rem;
     }
 }
+
+/* --- USER SIDE & POS PAGE DARK MODE ENHANCEMENTS --- */
+.products {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    margin-bottom: 20px !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+.products h6.text-info {
+    color: var(--color-primary) !important; /* Use theme accent */
+    font-weight: 600;
+}
+.products h6:not(.text-info) {
+    color: var(--text-main) !important;
+    font-family: var(--font-mono) !important;
+}
+
+body.dark-mode .bg-light {
+    background-color: var(--bg-page) !important;
+    color: var(--text-main) !important;
+}
+
+body.dark-mode .bg-white {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+}
+
+body.dark-mode .nav-tabs {
+    border-bottom: 2px solid var(--border-color) !important;
+}
+body.dark-mode .nav-tabs .nav-link {
+    color: var(--text-muted) !important;
+    border: none !important;
+    background-color: transparent !important;
+}
+body.dark-mode .nav-tabs .nav-link.active {
+    color: var(--color-primary) !important;
+    border-bottom: 3px solid var(--color-primary) !important;
+    background-color: transparent !important;
+    font-weight: 600 !important;
+}
+body.dark-mode .nav-tabs .nav-link:hover {
+    color: var(--text-main) !important;
+    border-bottom: 3px solid var(--border-color) !important;
+}
+
+/* User Profile card overlays in Dark Mode */
+body.dark-mode #overlay {
+    background-color: rgba(11, 15, 25, 0.85) !important;
+}
+body.dark-mode #text {
+    color: var(--text-main) !important;
+}
+
