@@ -69,7 +69,6 @@ body.dark-mode {
 /* --- RESET & TYPOGRAPHY --- */
 body, label, .form-control, .btn, h1, h2, h3, h4, h5, h6, span, p, div, table, th, td, a {
     font-family: var(--font-sans) !important;
-    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.15s ease;
 }
 
 body {
@@ -85,6 +84,52 @@ body {
 .sku-text, .price-text, .number-text, .mono-text, td:nth-child(1), td:nth-child(3) {
     font-family: var(--font-mono) !important;
     font-weight: 500;
+}
+
+/* --- TEXT OVERFLOW PREVENTIONS --- */
+.sidebar-brand-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 12px;
+}
+.card-header h1, .card-header h2, .card-header h3, .card-header h4, .card-header h5, .card-header h6 {
+    margin: 0 !important;
+}
+.btn {
+    white-space: nowrap !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* --- DARK MODE VISIBILITY OVERRIDES --- */
+body.dark-mode .text-gray-900 { color: #f1f5f9 !important; }
+body.dark-mode .text-gray-800 { color: #e2e8f0 !important; }
+body.dark-mode .text-gray-700 { color: #cbd5e1 !important; }
+body.dark-mode .text-gray-600 { color: #94a3b8 !important; }
+body.dark-mode .text-gray-500 { color: #64748b !important; }
+body.dark-mode .text-gray-400 { color: #475569 !important; }
+body.dark-mode .text-gray-300 { color: #334155 !important; }
+body.dark-mode .text-gray-200 { color: #1e293b !important; }
+body.dark-mode .text-gray-100 { color: #0f172a !important; }
+
+body.dark-mode .text-primary { color: var(--color-primary) !important; }
+body.dark-mode .text-success { color: var(--color-success) !important; }
+body.dark-mode .text-danger { color: var(--color-danger) !important; }
+body.dark-mode .text-warning { color: var(--color-warning) !important; }
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6, 
+body.dark-mode p, body.dark-mode span, body.dark-mode label {
+    color: var(--text-main) !important;
 }
 
 /* --- TOPBAR & NAVIGATION --- */
@@ -174,6 +219,15 @@ body {
     color: var(--color-primary) !important;
 }
 
+body.dark-mode .sidebar .nav-item .nav-link span,
+body.dark-mode .sidebar .nav-item .nav-link i {
+    color: var(--sidebar-text) !important;
+}
+body.dark-mode .sidebar .nav-item.active .nav-link span,
+body.dark-mode .sidebar .nav-item.active .nav-link i {
+    color: var(--sidebar-text-active) !important;
+}
+
 /* --- TABLER STYLE CARDS --- */
 .card {
     background-color: var(--bg-card) !important;
@@ -194,6 +248,7 @@ body {
 }
 .card-body {
     padding: 1.5rem !important;
+    color: var(--text-main) !important;
 }
 .card.border-left-primary { border-left: 3px solid var(--color-primary) !important; }
 .card.border-left-success { border-left: 3px solid var(--color-success) !important; }
@@ -201,24 +256,18 @@ body {
 .card.border-left-warning { border-left: 3px solid var(--color-warning) !important; }
 .card.border-left-info { border-left: 3px solid #00D2FC !important; }
 
-/* KPI Card Typography */
-.card-body .text-primary { color: var(--color-primary) !important; }
-.card-body .text-success { color: var(--color-success) !important; }
-.card-body .text-danger { color: var(--color-danger) !important; }
-.card-body .text-warning { color: var(--color-warning) !important; }
-
 /* --- FLOWBITE STYLE TABLES --- */
 .table-responsive {
     overflow-x: auto;
 }
-.table {
+table#dataTable {
     width: 100%;
     margin-bottom: 0 !important;
     color: var(--text-main) !important;
     border-collapse: separate !important;
-    border-spacing: 0 6px !important; /* Elegant modern row spacing */
+    border-spacing: 0 6px !important; /* Spaced rows */
 }
-.table th {
+table#dataTable th {
     background-color: var(--bg-page) !important;
     color: var(--text-muted) !important;
     text-transform: uppercase;
@@ -228,35 +277,52 @@ body {
     border: none !important;
     padding: 12px 18px !important;
 }
-.table td {
+table#dataTable td {
     background-color: var(--bg-card) !important;
+    border: none !important;
     border-top: 1px solid var(--border-color) !important;
     border-bottom: 1px solid var(--border-color) !important;
     padding: 14px 18px !important;
     vertical-align: middle !important;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.table td:first-child {
+table#dataTable td:first-child {
     border-left: 1px solid var(--border-color) !important;
     border-top-left-radius: 8px !important;
     border-bottom-left-radius: 8px !important;
 }
-.table td:last-child {
+table#dataTable td:last-child {
     border-right: 1px solid var(--border-color) !important;
     border-top-right-radius: 8px !important;
     border-bottom-right-radius: 8px !important;
 }
-.table tbody tr {
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+table#dataTable td.sku-text, 
+table#dataTable td.price-text, 
+table#dataTable td.number-text, 
+table#dataTable td:last-child {
+    white-space: nowrap !important;
+    max-width: none !important;
 }
-.table tbody tr:hover td {
+table#dataTable tbody tr:hover td {
     background-color: var(--bg-page) !important;
+}
+
+body.dark-mode table, body.dark-mode th, body.dark-mode td {
+    color: var(--text-main) !important;
     border-color: var(--border-color) !important;
+}
+body.dark-mode table#dataTable th {
+    color: var(--text-muted) !important;
 }
 
 /* Stock Status Row Blends (Flowbite Table visual enhancements) */
 .stock-red td {
     background-color: var(--bg-danger-soft) !important;
-    border-color: rgba(214, 69, 69, 0.15) !important;
+    border-top-color: rgba(214, 69, 69, 0.25) !important;
+    border-bottom-color: rgba(214, 69, 69, 0.25) !important;
 }
 .stock-red td:first-child {
     border-left: 4px solid var(--color-danger) !important;
@@ -267,7 +333,8 @@ body {
 
 .stock-amber td {
     background-color: var(--bg-warning-soft) !important;
-    border-color: rgba(201, 118, 44, 0.15) !important;
+    border-top-color: rgba(201, 118, 44, 0.25) !important;
+    border-bottom-color: rgba(201, 118, 44, 0.25) !important;
 }
 .stock-amber td:first-child {
     border-left: 4px solid var(--color-warning) !important;
@@ -278,13 +345,27 @@ body {
 
 .stock-green td {
     background-color: var(--bg-success-soft) !important;
-    border-color: rgba(47, 158, 68, 0.15) !important;
+    border-top-color: rgba(47, 158, 68, 0.25) !important;
+    border-bottom-color: rgba(47, 158, 68, 0.25) !important;
 }
 .stock-green td:first-child {
     border-left: 4px solid var(--color-success) !important;
 }
 .stock-green:hover td {
     background-color: rgba(47, 158, 68, 0.08) !important;
+}
+
+/* Compact tables (POS and list-groups) */
+.table:not(#dataTable) {
+    color: var(--text-main) !important;
+}
+.table:not(#dataTable) th {
+    color: var(--text-muted) !important;
+    background-color: transparent !important;
+}
+.table:not(#dataTable) td {
+    color: var(--text-main) !important;
+    border-top: 1px solid var(--border-color) !important;
 }
 
 /* --- FORMS & INPUTS (Modern Outlined Fields) --- */
@@ -313,6 +394,15 @@ body {
     background-color: var(--bg-page) !important;
     border: 1px solid var(--border-color) !important;
     color: var(--text-muted) !important;
+}
+
+body.dark-mode .form-control, body.dark-mode select, body.dark-mode textarea {
+    background-color: var(--bg-page) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-main) !important;
+}
+body.dark-mode .form-control:focus, body.dark-mode select:focus, body.dark-mode textarea:focus {
+    background-color: var(--bg-page) !important;
 }
 
 /* Buttons */
@@ -358,6 +448,67 @@ body {
 }
 .close {
     color: var(--text-main) !important;
+    text-shadow: none !important;
+    opacity: 0.8;
+}
+.close:hover {
+    opacity: 1;
+}
+
+body.dark-mode .modal-content {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}
+body.dark-mode .modal-header, body.dark-mode .modal-footer {
+    border-color: var(--border-color) !important;
+}
+body.dark-mode .modal-body, body.dark-mode .modal-title {
+    color: var(--text-main) !important;
+}
+body.dark-mode .close {
+    color: var(--text-main) !important;
+}
+
+/* Dropdown Menus in Dark Mode */
+body.dark-mode .dropdown-menu {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+body.dark-mode .dropdown-item {
+    color: var(--text-main) !important;
+    background-color: transparent !important;
+}
+body.dark-mode .dropdown-item:hover, body.dark-mode .dropdown-item:focus {
+    background-color: var(--bg-page) !important;
+    color: var(--color-primary) !important;
+}
+
+/* Datatables controls in Dark Mode */
+body.dark-mode .dataTables_wrapper {
+    color: var(--text-main) !important;
+}
+body.dark-mode .dataTables_wrapper select, 
+body.dark-mode .dataTables_wrapper input {
+    background-color: var(--bg-page) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-main) !important;
+}
+body.dark-mode .page-link {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-main) !important;
+}
+body.dark-mode .page-item.active .page-link {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: #ffffff !important;
+}
+body.dark-mode .page-item.disabled .page-link {
+    background-color: var(--bg-page) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-muted) !important;
 }
 
 /* --- STRIKING MODERN LOGIN PAGE --- */
