@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* --- CUSTOM PREMIUM THEME FOR STOCK CONTROL MANAGEMENT SYSTEM --- */
+
+/* Standard typography rules */
+body, label, .form-control, .btn, h1, h2, h3, h4, h5, h6, span, p, div, table, th, td, a {
+    font-family: 'Inter', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Monospace fonts for numbers, SKUs, and prices */
+.sku-text, .price-text, .number-text, .mono-text {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 500;
+}
+
+/* Page Backgrounds */
+body, #content-wrapper {
+    background-color: #F7F7F5 !important;
+}
+
+/* Sidebar Custom Styling */
+.sidebar, .bg-gradient-primary {
+    background: #1B2430 !important;
+    background-image: none !important;
+}
+.sidebar .nav-item .nav-link i {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+.sidebar .nav-item.active .nav-link {
+    font-weight: 700;
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Amber Accent Styling */
+.text-primary, .sidebar-brand-text, .card-header h4, .card-header h6 {
+    color: #C9762C !important;
+}
+.btn-primary {
+    color: #fff !important;
+    background-color: #C9762C !important;
+    border-color: #C9762C !important;
+    box-shadow: 0 2px 4px rgba(201, 118, 44, 0.15);
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #A85D1E !important;
+    border-color: #A85D1E !important;
+}
+.bg-gradient-primary {
+    background-color: #1B2430 !important;
+}
+.border-left-primary {
+    border-left: 0.25rem solid #C9762C !important;
+}
+.border-bottom-primary {
+    border-bottom: 0.25rem solid #C9762C !important;
+}
+
+/* Premium Card Styling */
+.card {
+    border-radius: 8px !important;
+    border: 1px solid #E3E3E0 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+.card-header {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #E3E3E0 !important;
+    padding: 1rem 1.25rem !important;
+}
+
+/* Form and Button Radii */
+.form-control, .btn, .input-group-text, select {
+    border-radius: 6px !important;
+}
+.form-control:focus {
+    border-color: #C9762C !important;
+    box-shadow: 0 0 0 0.2rem rgba(201, 118, 44, 0.25) !important;
+}
+
+/* Stock Status Left Borders (Indicator Classes) */
+.stock-red {
+    border-left: 5px solid #D64545 !important;
+}
+.stock-amber {
+    border-left: 5px solid #C9762C !important;
+}
+.stock-green {
+    border-left: 5px solid #2F9E44 !important;
+}
+
+/* Badge colors */
+.bg-success {
+    background-color: #2F9E44 !important;
+}
+.bg-danger {
+    background-color: #D64545 !important;
+}
+.bg-warning {
+    background-color: #C9762C !important;
+}
+.text-success {
+    color: #2F9E44 !important;
+}
+.text-danger {
+    color: #D64545 !important;
+}
+.text-warning {
+    color: #C9762C !important;
+}

@@ -27,19 +27,23 @@ include'../includes/sidebar.php';
             </div>
             <a href="product.php?action=add" type="button" class="btn btn-primary bg-gradient-primary btn-block"> <i class="fas fa-flip-horizontal fa-fw fa-share"></i> Back</a>
             <div class="card-body">
-          <?php 
-            $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME,DESCRIPTION, COUNT(`QTY_STOCK`) AS "QTY_STOCK", COUNT(`ON_HAND`) AS "ON_HAND",PRICE, c.CNAME FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID WHERE PRODUCT_CODE ='.$_GET['id'];
-            $result = mysqli_query($db, $query) or die(mysqli_error($db));
-              while($row = mysqli_fetch_array($result))
-              {   
-                $zz= $row['PRODUCT_ID'];
-                $zzz= $row['PRODUCT_CODE'];
-                $i= $row['NAME'];
-                $a=$row['DESCRIPTION'];
-                $c=$row['PRICE'];
-                $d=$row['CNAME'];
-              }
-              $id = $_GET['id'];
+          <?php             $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, DESCRIPTION, COUNT(`QTY_STOCK`) AS "QTY_STOCK", COUNT(`ON_HAND`) AS "ON_HAND", PRICE, c.CNAME, p.CATEGORY, p.REORDER_THRESHOLD, p.UNIT_COST, p.SALE_PRICE, p.LOCATION FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID WHERE PRODUCT_CODE ='.$_GET['id'];
+             $result = mysqli_query($db, $query) or die(mysqli_error($db));
+               while($row = mysqli_fetch_array($result))
+               {   
+                 $zz= $row['PRODUCT_ID'];
+                 $zzz= $row['PRODUCT_CODE'];
+                 $i= $row['NAME'];
+                 $a=$row['DESCRIPTION'];
+                 $c=$row['PRICE'];
+                 $d=$row['CNAME'];
+                 $cat_text = $row['CATEGORY'];
+                 $reorder = $row['REORDER_THRESHOLD'];
+                 $cost = $row['UNIT_COST'];
+                 $saleprice = $row['SALE_PRICE'];
+                 $location = $row['LOCATION'];
+               }
+               $id = $_GET['id'];
           ?>
 
                   <div class="form-group row text-left">
@@ -81,24 +85,72 @@ include'../includes/sidebar.php';
                   <div class="form-group row text-left">
                       <div class="col-sm-3 text-primary">
                         <h5>
-                          Price<br>
+                          Unit Cost<br>
                         </h5>
                       </div>
                       <div class="col-sm-9">
-                        <h5>
-                          : <?php echo $c; ?><br>
+                        <h5 class="price-text">
+                          : $ <?php echo number_format($cost, 2); ?><br>
                         </h5>
                       </div>
                     </div>
                   <div class="form-group row text-left">
                       <div class="col-sm-3 text-primary">
                         <h5>
-                          Category<br>
+                          Sale Price<br>
+                        </h5>
+                      </div>
+                      <div class="col-sm-9">
+                        <h5 class="price-text">
+                          : $ <?php echo number_format($saleprice > 0 ? $saleprice : $c, 2); ?><br>
+                        </h5>
+                      </div>
+                    </div>
+                  <div class="form-group row text-left">
+                      <div class="col-sm-3 text-primary">
+                        <h5>
+                          Category (Dropdown)<br>
                         </h5>
                       </div>
                       <div class="col-sm-9">
                         <h5>
                           : <?php echo $d; ?><br>
+                        </h5>
+                      </div>
+                    </div>
+                  <div class="form-group row text-left">
+                      <div class="col-sm-3 text-primary">
+                        <h5>
+                          Category (Custom Text)<br>
+                        </h5>
+                      </div>
+                      <div class="col-sm-9">
+                        <h5>
+                          : <?php echo $cat_text; ?><br>
+                        </h5>
+                      </div>
+                    </div>
+                  <div class="form-group row text-left">
+                      <div class="col-sm-3 text-primary">
+                        <h5>
+                          Reorder Threshold<br>
+                        </h5>
+                      </div>
+                      <div class="col-sm-9">
+                        <h5 class="number-text">
+                          : <?php echo $reorder; ?><br>
+                        </h5>
+                      </div>
+                    </div>
+                  <div class="form-group row text-left">
+                      <div class="col-sm-3 text-primary">
+                        <h5>
+                          Storage Location<br>
+                        </h5>
+                      </div>
+                      <div class="col-sm-9">
+                        <h5>
+                          : <?php echo $location; ?><br>
                         </h5>
                       </div>
                     </div>
@@ -126,17 +178,17 @@ include'../includes/sidebar.php';
           <tbody>
 
 <?php                  
-    $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, COUNT("QTY_STOCK") AS QTY_STOCK, COUNT("ON_HAND") AS ON_HAND, CNAME, COMPANY_NAME, p.SUPPLIER_ID, DATE_STOCK_IN FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID JOIN supplier s ON p.SUPPLIER_ID=s.SUPPLIER_ID where PRODUCT_CODE ='.$zzz.' GROUP BY `SUPPLIER_ID`, `DATE_STOCK_IN`';
+    $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, COUNT("QTY_STOCK") AS QTY_STOCK, COUNT("ON_HAND") AS ON_HAND, CNAME, p.CATEGORY, COMPANY_NAME, p.SUPPLIER_ID, DATE_STOCK_IN FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID JOIN supplier s ON p.SUPPLIER_ID=s.SUPPLIER_ID where PRODUCT_CODE ='.$zzz.' GROUP BY `SUPPLIER_ID`, `DATE_STOCK_IN`';
         $result = mysqli_query($db, $query) or die (mysqli_error($db));
       
             while ($row = mysqli_fetch_assoc($result)) {
-                                 
+                                  
                 echo '<tr>';
-                echo '<td>'. $row['PRODUCT_CODE'].'</td>';
+                echo '<td class="sku-text">'. $row['PRODUCT_CODE'].'</td>';
                 echo '<td>'. $row['NAME'].'</td>';
-                echo '<td>'. $row['QTY_STOCK'].'</td>';
-                echo '<td>'. $row['ON_HAND'].'</td>';
-                echo '<td>'. $row['CNAME'].'</td>';
+                echo '<td class="number-text">'. $row['QTY_STOCK'].'</td>';
+                echo '<td class="number-text">'. $row['ON_HAND'].'</td>';
+                echo '<td>'. (!empty($row['CATEGORY']) ? $row['CATEGORY'] : $row['CNAME']) .'</td>';
                 echo '<td>'. $row['COMPANY_NAME'].'</td>';
                 echo '<td>'. $row['DATE_STOCK_IN'].'</td>';
                 echo '</tr> ';

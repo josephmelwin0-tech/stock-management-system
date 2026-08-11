@@ -43,21 +43,29 @@ include'../includes/sidebar.php';
           <tbody>
 
 <?php                  
-    $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, COUNT(`QTY_STOCK`) AS "QTY_STOCK", COUNT(`ON_HAND`) AS "ON_HAND", CNAME, DATE_STOCK_IN FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID GROUP BY PRODUCT_CODE';
+    $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, COUNT(`QTY_STOCK`) AS "QTY_STOCK", COUNT(`ON_HAND`) AS "ON_HAND", CNAME, p.CATEGORY, DATE_STOCK_IN, REORDER_THRESHOLD FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID GROUP BY PRODUCT_CODE';
         $result = mysqli_query($db, $query) or die (mysqli_error($db));
       
             while ($row = mysqli_fetch_assoc($result)) {
-                                 
-                echo '<tr>';
-                echo '<td>'. $row['PRODUCT_CODE'].'</td>';
+                $qty_stock = $row['QTY_STOCK'];
+                $reorder = $row['REORDER_THRESHOLD'];
+                $border_class = 'stock-green';
+                if ($qty_stock < $reorder) {
+                    $border_class = 'stock-red';
+                } elseif ($qty_stock <= $reorder + 3) {
+                    $border_class = 'stock-amber';
+                }
+                                  
+                echo '<tr class="'. $border_class .'">';
+                echo '<td class="sku-text">'. $row['PRODUCT_CODE'].'</td>';
                 echo '<td>'. $row['NAME'].'</td>';
-                echo '<td>'. $row['QTY_STOCK'].'</td>';
-                echo '<td>'. $row['ON_HAND'].'</td>';
-                echo '<td>'. $row['CNAME'].'</td>';
+                echo '<td class="number-text">'. $row['QTY_STOCK'].'</td>';
+                echo '<td class="number-text">'. $row['ON_HAND'].'</td>';
+                echo '<td>'. (!empty($row['CATEGORY']) ? $row['CATEGORY'] : $row['CNAME']) .'</td>';
                 echo '<td>'. $row['DATE_STOCK_IN'].'</td>';
                       echo '<td align="right">
                               <a type="button" class="btn btn-primary bg-gradient-primary" href="inv_searchfrm.php?action=edit & id='.$row['PRODUCT_CODE'] . '"><i class="fas fa-fw fa-th-list"></i> View</a>
-                          </div> </td>';
+                          </td>';
                 echo '</tr> ';
                         }
 ?> 

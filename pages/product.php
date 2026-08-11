@@ -54,29 +54,43 @@ $sup .= "</select>";
                    <tr>
                      <th>Product Code</th>
                      <th>Name</th>
-                     <th>Price</th>
                      <th>Category</th>
+                     <th>Reorder Threshold</th>
+                     <th>Unit Cost</th>
+                     <th>Sale Price</th>
+                     <th>Location</th>
                      <th>Action</th>
                    </tr>
                </thead>
           <tbody>
 
 <?php                  
-    $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, PRICE, CNAME, DATE_STOCK_IN FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID GROUP BY PRODUCT_CODE';
+    $query = 'SELECT PRODUCT_ID, PRODUCT_CODE, NAME, PRICE, CNAME, DATE_STOCK_IN, p.CATEGORY, p.REORDER_THRESHOLD, p.UNIT_COST, p.SALE_PRICE, p.LOCATION, COUNT(QTY_STOCK) AS QTY_STOCK FROM product p join category c on p.CATEGORY_ID=c.CATEGORY_ID GROUP BY PRODUCT_CODE';
         $result = mysqli_query($db, $query) or die (mysqli_error($db));
       
             while ($row = mysqli_fetch_assoc($result)) {
+                $qty_stock = $row['QTY_STOCK'];
+                $reorder = $row['REORDER_THRESHOLD'];
+                $border_class = 'stock-green';
+                if ($qty_stock < $reorder) {
+                    $border_class = 'stock-red';
+                } elseif ($qty_stock <= $reorder + 3) {
+                    $border_class = 'stock-amber';
+                }
                                  
-                echo '<tr>';
-                echo '<td>'. $row['PRODUCT_CODE'].'</td>';
+                echo '<tr class="'. $border_class .'">';
+                echo '<td class="sku-text">'. $row['PRODUCT_CODE'].'</td>';
                 echo '<td>'. $row['NAME'].'</td>';
-                echo '<td>'. $row['PRICE'].'</td>';
-                echo '<td>'. $row['CNAME'].'</td>';
+                echo '<td>'. (!empty($row['CATEGORY']) ? $row['CATEGORY'] : $row['CNAME']) .'</td>';
+                echo '<td class="number-text">'. $row['REORDER_THRESHOLD'].'</td>';
+                echo '<td class="price-text">$ '. number_format($row['UNIT_COST'], 2).'</td>';
+                echo '<td class="price-text">$ '. number_format($row['SALE_PRICE'] > 0 ? $row['SALE_PRICE'] : $row['PRICE'], 2).'</td>';
+                echo '<td>'. $row['LOCATION'].'</td>';
                       echo '<td align="right"> <div class="btn-group">
                               <a type="button" class="btn btn-primary bg-gradient-primary" href="pro_searchfrm.php?action=edit & id='.$row['PRODUCT_CODE'] . '"><i class="fas fa-fw fa-list-alt"></i> Details</a>
                             <div class="btn-group">
                               <a type="button" class="btn btn-primary bg-gradient-primary dropdown no-arrow" data-toggle="dropdown" style="color:white;">
-                              ... <span class="caret"></span></a>
+                               ... <span class="caret"></span></a>
                             <ul class="dropdown-menu text-center" role="menu">
                                 <li>
                                   <a type="button" class="btn btn-warning bg-gradient-warning btn-block" style="border-radius: 0px;" href="pro_edit.php?action=edit & id='.$row['PRODUCT_ID']. '">
@@ -119,21 +133,33 @@ include'../includes/footer.php';
              <input class="form-control" placeholder="Name" name="name" required>
            </div>
            <div class="form-group">
-             <textarea rows="5" cols="50" texarea" class="form-control" placeholder="Description" name="description" required></textarea>
+             <textarea rows="5" cols="50" class="form-control" placeholder="Description" name="description" required></textarea>
            </div>
            <div class="form-group">
-             <input type="number"  min="1" max="999999999" class="form-control" placeholder="Quantity" name="quantity" required>
+             <input type="number" min="1" max="999999999" class="form-control" placeholder="Quantity" name="quantity" required>
            </div>
            <div class="form-group">
-             <input type="number"  min="1" max="999999999" class="form-control" placeholder="On Hand" name="onhand" required>
+             <input type="number" min="1" max="999999999" class="form-control" placeholder="On Hand" name="onhand" required>
            </div>
            <div class="form-group">
-             <input type="number"  min="1" max="9999999999" class="form-control" placeholder="Price" name="price" required>
+             <input type="number" step="0.01" min="0" class="form-control" placeholder="Unit Cost" name="unit_cost" required>
+           </div>
+           <div class="form-group">
+             <input type="number" step="0.01" min="0" class="form-control" placeholder="Sale Price" name="price" required>
            </div>
            <div class="form-group">
              <?php
                echo $aaa;
              ?>
+           </div>
+           <div class="form-group">
+             <input class="form-control" placeholder="Category (Custom Text)" name="category_text">
+           </div>
+           <div class="form-group">
+             <input type="number" min="0" class="form-control" placeholder="Reorder Threshold" name="reorder_threshold" required>
+           </div>
+           <div class="form-group">
+             <input class="form-control" placeholder="Storage Location" name="location" required>
            </div>
            <div class="form-group">
              <?php
