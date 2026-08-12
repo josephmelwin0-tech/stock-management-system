@@ -46,12 +46,12 @@
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../css/custom-theme.css" rel="stylesheet">
+  <link href="../css/custom-theme.css?v=<?php echo time(); ?>" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="cart.css" />
+  <link rel="stylesheet" href="cart.css?v=<?php echo time(); ?>" />
   
   <!-- Early Dark Mode Detection to Prevent Flash -->
   <script>
@@ -80,7 +80,7 @@
 
       <a class="sidebar-brand d-flex align-items-center justify-content-center"  style="text-decoration: none; font-size: 18px; font-weight: bold;" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-warehouse"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Stock Control Management System</div>
       </a>

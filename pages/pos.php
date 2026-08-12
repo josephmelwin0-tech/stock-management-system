@@ -145,6 +145,7 @@ function pre_r($array){
         ?>  
         <tr>  
           <td>
+            <input type="hidden" name="id[]" value="<?php echo $product['id']; ?>">
             <input type="hidden" name="name[]" value="<?php echo $product['name']; ?>">
             <?php echo $product['name']; ?>
           </td>  

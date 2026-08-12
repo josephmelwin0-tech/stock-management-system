@@ -41,8 +41,11 @@ $low_stock_res = mysqli_query($db, $low_stock_query) or die(mysqli_error($db));
 $low_stock_row = mysqli_fetch_assoc($low_stock_res);
 $low_stock_count = intval($low_stock_row['low_count'] ?? 0);
 
-// 3. Pending Purchase Orders (Simulated / Mocked)
-$pending_po_count = 3;
+// 3. Pending Purchase Orders (Actual count from DB)
+$pending_po_query = "SELECT COUNT(*) AS pending_count FROM purchase_orders WHERE status = 'PENDING'";
+$pending_po_res = mysqli_query($db, $pending_po_query) or die(mysqli_error($db));
+$pending_po_row = mysqli_fetch_assoc($pending_po_res);
+$pending_po_count = intval($pending_po_row['pending_count'] ?? 0);
 
 // 4. Today's Sales Total
 $today_date = date("Y-m-d");
@@ -124,7 +127,7 @@ $back_order_count = 8;
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: #C9762C;">Total Stock Value</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Stock Value</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800 price-text">$ <?php echo number_format($total_stock_value, 2); ?></div>
                     </div>
                     <div class="col-auto">
@@ -340,10 +343,10 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 label: 'Stock Value ($)',
                 data: trendData.length ? trendData : [0],
-                backgroundColor: 'rgba(201, 118, 44, 0.05)',
-                borderColor: '#C9762C',
+                backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                borderColor: '#4f46e5',
                 borderWidth: 3,
-                pointBackgroundColor: '#C9762C',
+                pointBackgroundColor: '#4f46e5',
                 pointBorderColor: '#ffffff',
                 pointRadius: 4,
                 fill: true,
@@ -387,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 data: catData.length ? catData : [0],
                 backgroundColor: [
-                    '#1B2430', '#C9762C', '#2F9E44', '#D64545', 
+                    '#09090b', '#4f46e5', '#10b981', '#ef4444', 
                     '#4D96FF', '#6BCB77', '#FFD93D', '#FF6B6B', '#9B5DE5'
                 ],
                 borderWidth: 2,
@@ -463,7 +466,7 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 label: 'Quantity',
                 data: [<?php echo $po_count; ?>, <?php echo $received_count; ?>, <?php echo $back_order_count; ?>],
-                backgroundColor: ['#C9762C', '#2F9E44', '#D64545'],
+                backgroundColor: ['#4f46e5', '#10b981', '#ef4444'],
                 borderRadius: 4,
                 maxBarThickness: 50
             }]

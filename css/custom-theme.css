@@ -6,29 +6,29 @@
     --font-mono: 'JetBrains Mono', monospace;
 
     /* Light Theme Variables */
-    --bg-page: #F8F9FA;
+    --bg-page: #f8fafc;
     --bg-card: #ffffff;
-    --bg-sidebar: #1B2430;
-    --sidebar-text: rgba(255, 255, 255, 0.65);
+    --bg-sidebar: #09090b;
+    --sidebar-text: #a1a1aa;
     --sidebar-text-active: #ffffff;
-    --sidebar-active-bg: rgba(255, 255, 255, 0.08);
+    --sidebar-active-bg: #27272a;
     
-    --text-main: #2D3748;
-    --text-muted: #718096;
-    --text-primary: #C9762C;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --text-primary: #4f46e5;
     
-    --border-color: #E2E8F0;
+    --border-color: #e2e8f0;
     
-    --color-primary: #C9762C;
-    --color-primary-hover: #A85D1E;
-    --color-success: #2F9E44;
-    --color-danger: #D64545;
-    --color-warning: #C9762C;
+    --color-primary: #4f46e5;
+    --color-primary-hover: #4338ca;
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
     
     /* Soft backgrounds for tables */
-    --bg-success-soft: rgba(47, 158, 68, 0.05);
-    --bg-danger-soft: rgba(214, 69, 69, 0.05);
-    --bg-warning-soft: rgba(201, 118, 44, 0.05);
+    --bg-success-soft: rgba(16, 185, 129, 0.05);
+    --bg-danger-soft: rgba(239, 68, 68, 0.05);
+    --bg-warning-soft: rgba(245, 158, 11, 0.05);
 
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
@@ -37,29 +37,29 @@
 
 body.dark-mode {
     /* Dark Theme Variables */
-    --bg-page: #0B0F19; /* Deep dark background */
-    --bg-card: #151B26; /* Sleek card background */
-    --bg-sidebar: #0B0F19;
-    --sidebar-text: rgba(255, 255, 255, 0.6);
+    --bg-page: #09090b;
+    --bg-card: #18181b;
+    --bg-sidebar: #09090b;
+    --sidebar-text: #71717a;
     --sidebar-text-active: #ffffff;
-    --sidebar-active-bg: rgba(201, 118, 44, 0.15);
+    --sidebar-active-bg: #27272a;
     
-    --text-main: #E2E8F0;
-    --text-muted: #94A3B8;
-    --text-primary: #C9762C;
+    --text-main: #f4f4f5;
+    --text-muted: #a1a1aa;
+    --text-primary: #6366f1;
     
-    --border-color: #232D3F;
+    --border-color: #27272a;
     
-    --color-primary: #C9762C;
-    --color-primary-hover: #E3893C;
-    --color-success: #40C057;
-    --color-danger: #FA5252;
-    --color-warning: #FD7E14;
+    --color-primary: #6366f1;
+    --color-primary-hover: #4f46e5;
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
     
     /* Soft backgrounds for tables (Dark mode) */
-    --bg-success-soft: rgba(64, 192, 87, 0.12);
-    --bg-danger-soft: rgba(250, 82, 82, 0.12);
-    --bg-warning-soft: rgba(253, 126, 20, 0.12);
+    --bg-success-soft: rgba(16, 185, 129, 0.12);
+    --bg-danger-soft: rgba(239, 68, 68, 0.12);
+    --bg-warning-soft: rgba(245, 158, 11, 0.12);
 
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
@@ -132,21 +132,79 @@ body.dark-mode p, body.dark-mode span, body.dark-mode label {
     color: var(--text-main) !important;
 }
 
-/* --- TOPBAR & NAVIGATION --- */
+/* --- TOPBAR & FLOATING LAYOUT OVERHAUL --- */
+#wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-page) !important;
+    padding: 24px !important;
+    gap: 24px !important;
+}
+
+.sidebar {
+    width: 260px !important;
+    min-width: 260px !important;
+    background-color: var(--bg-sidebar) !important;
+    border-radius: 16px !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-md) !important;
+    margin: 0 !important;
+    padding: 12px 0 !important;
+    height: calc(100vh - 48px) !important;
+    position: sticky !important;
+    top: 24px !important;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto !important;
+    scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar.toggled {
+    width: 6.5rem !important;
+    min-width: 6.5rem !important;
+}
+
+#content-wrapper {
+    background-color: transparent !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px !important;
+}
+
+#content {
+    background-color: transparent !important;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .navbar, .topbar {
     background-color: var(--bg-card) !important;
-    border-bottom: 1px solid var(--border-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px !important;
     box-shadow: var(--shadow-sm) !important;
+    margin-bottom: 0 !important;
+    padding: 0 24px !important;
+    height: 70px !important;
 }
+
 .navbar .nav-link, .topbar .nav-link {
     color: var(--text-main) !important;
 }
+
 .navbar .nav-link:hover, .topbar .nav-link:hover {
     color: var(--color-primary) !important;
 }
+
 .topbar-divider {
     border-right: 1px solid var(--border-color) !important;
 }
+
 #darkModeToggle {
     border: none;
     outline: none;
@@ -154,29 +212,33 @@ body.dark-mode p, body.dark-mode span, body.dark-mode label {
     background: transparent;
     transition: transform 0.2s ease;
 }
+
 #darkModeToggle:hover {
     transform: scale(1.1);
 }
 
-/* --- SIDEBAR CUSTOMIZATION (Tabler style) --- */
-.sidebar {
-    background-color: var(--bg-sidebar) !important;
-    border-right: 1px solid var(--border-color) !important;
-}
+/* --- SIDEBAR CUSTOMIZATION --- */
 .sidebar .sidebar-brand {
     color: #ffffff !important;
-    padding: 1.5rem 1rem !important;
+    padding: 1.5rem 1.25rem !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 .sidebar-brand-text {
     font-weight: 700 !important;
     letter-spacing: 0.5px;
     font-size: 0.95rem !important;
+    color: #ffffff !important;
+    display: inline-block !important;
+    overflow: visible !important;
+    white-space: normal !important;
 }
+
 .sidebar hr.sidebar-divider {
     border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
     margin: 1rem 0 !important;
 }
+
 .sidebar .sidebar-heading {
     color: rgba(255, 255, 255, 0.4) !important;
     font-weight: 600 !important;
@@ -185,47 +247,85 @@ body.dark-mode p, body.dark-mode span, body.dark-mode label {
     text-transform: uppercase;
     padding: 0 1.5rem !important;
 }
+
 .sidebar .nav-item {
-    margin: 0.2rem 0.75rem !important;
+    margin: 0.25rem 0.75rem !important;
 }
+
 .sidebar .nav-item .nav-link {
     padding: 0.75rem 1rem !important;
     color: var(--sidebar-text) !important;
-    border-radius: 6px !important;
+    border-radius: 10px !important;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     transition: all 0.2s ease !important;
+    font-weight: 500 !important;
 }
+
 .sidebar .nav-item .nav-link i {
     color: var(--sidebar-text) !important;
     font-size: 0.875rem !important;
     width: 20px;
     text-align: center;
 }
+.sidebar .nav-item .nav-link span {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    display: inline-block !important;
+}
+
 .sidebar .nav-item .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.06);
     color: #ffffff !important;
 }
+
 .sidebar .nav-item .nav-link:hover i {
     color: #ffffff !important;
 }
+
 .sidebar .nav-item.active .nav-link {
-    background-color: var(--sidebar-active-bg) !important;
-    color: var(--sidebar-text-active) !important;
+    background-color: var(--color-primary) !important;
+    color: #ffffff !important;
     font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
 }
+
 .sidebar .nav-item.active .nav-link i {
-    color: var(--color-primary) !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .sidebar .nav-item.active .nav-link {
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25) !important;
 }
 
 body.dark-mode .sidebar .nav-item .nav-link span,
 body.dark-mode .sidebar .nav-item .nav-link i {
     color: var(--sidebar-text) !important;
 }
+
 body.dark-mode .sidebar .nav-item.active .nav-link span,
 body.dark-mode .sidebar .nav-item.active .nav-link i {
-    color: var(--sidebar-text-active) !important;
+    color: #ffffff !important;
+}
+
+/* Responsive Overrides to Stack Layout on Mobile */
+@media (max-width: 768px) {
+    #wrapper {
+        padding: 12px !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+    .sidebar {
+        width: 100% !important;
+        min-width: 100% !important;
+        height: auto !important;
+        position: static !important;
+        margin-bottom: 0 !important;
+    }
+    #content-wrapper {
+        gap: 16px !important;
+    }
 }
 
 /* --- TABLER STYLE CARDS --- */
@@ -517,7 +617,7 @@ body.dark-mode .page-item.disabled .page-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #1B2430 0%, #0d121c 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #09090b 100%);
     padding: 1.5rem;
 }
 .login-card {
@@ -532,7 +632,7 @@ body.dark-mode .page-item.disabled .page-link {
 }
 .login-branding {
     flex: 1.1;
-    background: linear-gradient(135deg, #1B2430 0%, #111827 100%);
+    background: linear-gradient(135deg, #1e1b4b 0%, #09090b 100%);
     padding: 4rem;
     color: #ffffff;
     display: flex;
@@ -683,30 +783,83 @@ body.dark-mode .bg-white {
     color: var(--text-main) !important;
 }
 
-body.dark-mode .nav-tabs {
-    border-bottom: 2px solid var(--border-color) !important;
+/* --- PREMIUM CAPSULE TAB-BAR SWITCHER (POS categories) --- */
+.nav-tabs {
+    border-bottom: none !important;
+    background-color: #f1f5f9 !important;
+    padding: 6px !important;
+    border-radius: 12px !important;
+    display: inline-flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    margin-bottom: 20px !important;
 }
-body.dark-mode .nav-tabs .nav-link {
-    color: var(--text-muted) !important;
+
+.nav-tabs .nav-item {
+    margin: 0 !important;
+}
+
+.nav-tabs .nav-link {
     border: none !important;
-    background-color: transparent !important;
-}
-body.dark-mode .nav-tabs .nav-link.active {
-    color: var(--color-primary) !important;
-    border-bottom: 3px solid var(--color-primary) !important;
-    background-color: transparent !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
     font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    transition: all 0.2s ease !important;
+    background: transparent !important;
 }
-body.dark-mode .nav-tabs .nav-link:hover {
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-link.active:hover {
+    background-color: #ffffff !important;
+    color: var(--color-primary) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+.nav-tabs .nav-link:hover {
     color: var(--text-main) !important;
-    border-bottom: 3px solid var(--border-color) !important;
+    background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Dark Mode Capsule Switcher */
+body.dark-mode .nav-tabs {
+    background-color: #09090b !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+body.dark-mode .nav-tabs .nav-link.active, body.dark-mode .nav-tabs .nav-link.active:hover {
+    background-color: #18181b !important;
+    color: var(--color-primary) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+body.dark-mode .nav-tabs .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.02) !important;
 }
 
 /* User Profile card overlays in Dark Mode */
 body.dark-mode #overlay {
-    background-color: rgba(11, 15, 25, 0.85) !important;
+    background-color: rgba(9, 9, 11, 0.9) !important;
 }
 body.dark-mode #text {
+    color: var(--text-main) !important;
+}
+
+/* Custom color corrections for Bootstrap defaults in Dark Mode */
+body.dark-mode .text-dark {
+    color: #f4f4f5 !important;
+}
+body.dark-mode .text-secondary {
+    color: #a1a1aa !important;
+}
+body.dark-mode .text-muted {
+    color: #a1a1aa !important;
+}
+body.dark-mode .bg-light {
+    background-color: #18181b !important;
+    color: #f4f4f5 !important;
+}
+body.dark-mode .card-header h6 {
     color: var(--text-main) !important;
 }
 

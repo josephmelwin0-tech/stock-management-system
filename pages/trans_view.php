@@ -42,6 +42,45 @@ include'../includes/sidebar.php';
           $roles = $row['ROLE'];
         }
 ?>
+
+<style>
+@media print {
+    #accordionSidebar,
+    .sidebar,
+    .topbar,
+    .sticky-footer,
+    .scroll-to-top,
+    .btn,
+    .d-print-none,
+    nav {
+        display: none !important;
+    }
+    
+    #content-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+    }
+    
+    #wrapper {
+        display: block !important;
+    }
+    
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    body {
+        background-color: white !important;
+        color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+</style>
             
           <div class="card shadow mb-4">
             <div class="card-body">
@@ -51,10 +90,8 @@ include'../includes/sidebar.php';
                     Sales and Inventory
                   </h5>
                 </div>
-                <div class="col-sm-3 py-1">
-                  <h6>
-                    Date: <?php echo $date; ?>
-                  </h6>
+                <div class="col-sm-3 text-right">
+                  <button onclick="window.print()" class="btn btn-sm btn-info bg-gradient-info d-print-none"><i class="fas fa-print fa-fw"></i> Print Invoice</button>
                 </div>
               </div>
 <hr>
@@ -71,6 +108,9 @@ include'../includes/sidebar.php';
                 <div class="col-sm-4 py-1">
                   <h6>
                     Transaction #<?php echo $tid; ?>
+                  </h6>
+                  <h6>
+                    Date: <?php echo $date; ?>
                   </h6>
                   <h6 class="font-weight-bold">
                     Encoder: <?php echo $role; ?>

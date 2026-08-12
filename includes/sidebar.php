@@ -45,7 +45,7 @@
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../css/custom-theme.css" rel="stylesheet">
+  <link href="../css/custom-theme.css?v=<?php echo time(); ?>" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -72,7 +72,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-warehouse"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Stock Control System</div>
       </a>
@@ -135,6 +135,29 @@
           <i class="fas fa-fw fa-users"></i>
           <span>Accounts</span></a>
       </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">Operations</div>
+
+      <li class="nav-item">
+        <a class="nav-link" href="purchase_orders.php">
+          <i class="fas fa-fw fa-file-invoice"></i>
+          <span>Purchase Orders</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="damaged_goods.php">
+          <i class="fas fa-fw fa-exclamation-triangle"></i>
+          <span>Damaged Goods</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="history.php">
+          <i class="fas fa-fw fa-history"></i>
+          <span>Stock History</span></a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

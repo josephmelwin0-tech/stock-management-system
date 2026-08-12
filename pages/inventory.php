@@ -23,8 +23,9 @@ include'../includes/sidebar.php';
             ?>
             
             <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h4 class="m-2 font-weight-bold text-primary">Inventory</h4>
+            <div class="card-header py-3 d-flex align-items-center justify-content-between">
+              <h4 class="m-0 font-weight-bold text-primary">Inventory</h4>
+              <button type="button" onclick="exportTableToCSV('inventory.csv')" class="btn btn-success"><i class="fas fa-file-csv fa-fw"></i> Export CSV</button>
             </div>
             <div class="card-body">
               <div class="table-responsive">

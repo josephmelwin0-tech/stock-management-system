@@ -24,7 +24,7 @@
   
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../css/custom-theme.css" rel="stylesheet">
+  <link href="../css/custom-theme.css?v=<?php echo time(); ?>" rel="stylesheet">
 
   <!-- Early Dark Mode Detection to Prevent Flash -->
   <script>
@@ -43,7 +43,7 @@
     <div class="login-card animate-fade-in-up">
       <!-- Branding Side (Left) -->
       <div class="login-branding">
-        <i class="fas fa-cubes fa-4x mb-4 text-warning" style="color: #C9762C !important;"></i>
+        <i class="fas fa-warehouse fa-4x mb-4 text-warning" style="color: var(--color-primary) !important;"></i>
         <h2>Stock Control Management System</h2>
         <p>A comprehensive inventory, transaction processing, and stock control management system built for speed and reliability.</p>
       </div>

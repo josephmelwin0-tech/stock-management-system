@@ -30,6 +30,24 @@ session_start();
 
                     mysqli_query($db,$query)or die (mysqli_error($db));
 
+                    // Deduct stock from product table
+                    if (isset($_POST['id'][$i-1])) {
+                      $prod_id = (int)$_POST['id'][$i-1];
+                      $qty_sold = (int)$_POST['quantity'][$i-1];
+                      $code_query = "SELECT PRODUCT_CODE FROM product WHERE PRODUCT_ID = " . $prod_id;
+                      $code_res = mysqli_query($db, $code_query);
+                      if ($code_res && mysqli_num_rows($code_res) > 0) {
+                        $code_row = mysqli_fetch_assoc($code_res);
+                        $prod_code = $code_row['PRODUCT_CODE'];
+                        $delete_query = "DELETE FROM product WHERE PRODUCT_CODE = '" . mysqli_real_escape_string($db, $prod_code) . "' LIMIT " . $qty_sold;
+                        mysqli_query($db, $delete_query) or die(mysqli_error($db));
+
+                        // Log to stock history
+                        $history_query = "INSERT INTO stock_history (product_code, product_name, quantity, action_type, user) VALUES ('" . mysqli_real_escape_string($db, $prod_code) . "', '" . mysqli_real_escape_string($db, $_POST['name'][$i-1]) . "', -" . $qty_sold . ", 'SALE', '" . mysqli_real_escape_string($db, $emp) . "')";
+                        mysqli_query($db, $history_query) or die(mysqli_error($db));
+                      }
+                    }
+
                     }
                     $query111 = "INSERT INTO `transaction`
                                (`TRANS_ID`, `CUST_ID`, `NUMOFITEMS`, `SUBTOTAL`, `LESSVAT`, `NETVAT`, `ADDVAT`, `GRANDTOTAL`, `CASH`, `DATE`, `TRANS_D_ID`)
