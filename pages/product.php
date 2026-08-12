@@ -86,20 +86,16 @@ $sup .= "</select>";
                 echo '<td class="price-text">$ '. number_format($row['UNIT_COST'], 2).'</td>';
                 echo '<td class="price-text">$ '. number_format($row['SALE_PRICE'] > 0 ? $row['SALE_PRICE'] : $row['PRICE'], 2).'</td>';
                 echo '<td>'. $row['LOCATION'].'</td>';
-                      echo '<td align="right"> <div class="btn-group">
-                              <a type="button" class="btn btn-primary bg-gradient-primary" href="pro_searchfrm.php?action=edit & id='.$row['PRODUCT_CODE'] . '"><i class="fas fa-fw fa-list-alt"></i> Details</a>
-                            <div class="btn-group">
-                              <a type="button" class="btn btn-primary bg-gradient-primary dropdown no-arrow" data-toggle="dropdown" style="color:white;">
-                               ... <span class="caret"></span></a>
-                            <ul class="dropdown-menu text-center" role="menu">
-                                <li>
-                                  <a type="button" class="btn btn-warning bg-gradient-warning btn-block" style="border-radius: 0px;" href="pro_edit.php?action=edit & id='.$row['PRODUCT_ID']. '">
-                                    <i class="fas fa-fw fa-edit"></i> Edit
-                                  </a>
-                                </li>
-                            </ul>
-                            </div>
-                          </div> </td>';
+                      echo '<td align="right">
+                              <div class="btn-group">
+                                <a type="button" class="btn btn-primary bg-gradient-primary" href="pro_searchfrm.php?action=edit & id='.$row['PRODUCT_CODE'] . '">
+                                  <i class="fas fa-fw fa-list-alt"></i> Details
+                                </a>
+                                <a type="button" class="btn btn-warning bg-gradient-warning" href="pro_edit.php?action=edit & id='.$row['PRODUCT_ID']. '">
+                                  <i class="fas fa-fw fa-edit"></i> Edit
+                                </a>
+                              </div>
+                            </td>';
                 echo '</tr> ';
                         }
 ?> 

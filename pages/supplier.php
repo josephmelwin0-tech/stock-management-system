@@ -49,20 +49,16 @@ include'../includes/sidebar.php';
                 echo '<td>'. $row['PROVINCE'].'</td>';
                 echo '<td>'. $row['CITY'].'</td>';
                 echo '<td>'. $row['PHONE_NUMBER'].'</td>';
-                      echo '<td align="right"> <div class="btn-group">
-                              <a type="button" class="btn btn-primary bg-gradient-primary" href="sup_searchfrm.php?action=edit & id='.$row['SUPPLIER_ID'] . '"><i class="fas fa-fw fa-list-alt"></i> Details</a>
-                            <div class="btn-group">
-                              <a type="button" class="btn btn-primary bg-gradient-primary dropdown no-arrow" data-toggle="dropdown" style="color:white;">
-                              ... <span class="caret"></span></a>
-                            <ul class="dropdown-menu text-center" role="menu">
-                                <li>
-                                  <a type="button" class="btn btn-warning bg-gradient-warning btn-block" style="border-radius: 0px;" href="sup_edit.php?action=edit & id='.$row['SUPPLIER_ID']. '">
-                                    <i class="fas fa-fw fa-edit"></i> Edit
-                                  </a>
-                                </li> 
-                            </ul>
-                            </div>
-                          </div> </td>';
+                      echo '<td align="right">
+                              <div class="btn-group">
+                                <a type="button" class="btn btn-primary bg-gradient-primary" href="sup_searchfrm.php?action=edit & id='.$row['SUPPLIER_ID'] . '">
+                                  <i class="fas fa-fw fa-list-alt"></i> Details
+                                </a>
+                                <a type="button" class="btn btn-warning bg-gradient-warning" href="sup_edit.php?action=edit & id='.$row['SUPPLIER_ID']. '">
+                                  <i class="fas fa-fw fa-edit"></i> Edit
+                                </a>
+                              </div>
+                            </td>';
                       echo '</tr> ';
                         }
 ?> 
